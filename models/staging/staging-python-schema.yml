@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_custs
+    config:
+      schema: "{{env_var('DBT_STAGESCHEMA','STAGING_DEV')}}"
+
+models:
+  - name: stg_odrs
+    config:
+      schema: "{{env_var('DBT_STAGESCHEMA','STAGING_DEV')}}"

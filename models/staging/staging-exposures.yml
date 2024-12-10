@@ -1,0 +1,14 @@
+version: 2
+
+exposures:
+  - name: qwt_sales_dashboard
+    type: dashboard
+    url: https://www.google.com
+    maturity: high
+    description: "sales dashbard for marketing team"
+    owner:
+      name: kp
+      email: owner@gmail.com
+    depends_on:
+      - ref('fct_orders')
+      - ref('dim_customers')
