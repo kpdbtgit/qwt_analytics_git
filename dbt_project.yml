@@ -37,21 +37,21 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   vcity: "'Madrid'"
-  dbt_dq_tool_schema: AUDITING
+  #dbt_dq_tool_schema: AUDITING
   #dbt_dq_tool_schema: "{{env_var('DBT_AUDITSCH','AUDITING_DEV')}}"
-  dq_tools_enable_store_test_results: True
+  #dq_tools_enable_store_test_results: True
 
 # on-run-start: "use warehouse compute_wh;"
-on-run-end: "{{ dq_tools.store_test_results(results) }}"
+#on-run-end: "{{ dq_tools.store_test_results(results) }}"
 
 models:
-  +pre-hook:
-    - "insert into AUDITING.AUDITINFO(modelname, starttime, endtime, duration) values ('{{this}}',current_timestamp(),null,null);"
-  +post-hook:
-    - "update AUDITING.AUDITINFO set endtime=current_timestamp(),duration= datediff('second',starttime,current_timestamp()) where modelname='{{this}}' and endtime is null;"
+  #+pre-hook:
+   # - "insert into AUDITING.AUDITINFO(modelname, starttime, endtime, duration) values ('{{this}}',current_timestamp(),null,null);"
+  #+post-hook:
+   # - "update AUDITING.AUDITINFO set endtime=current_timestamp(),duration= datediff('second',starttime,current_timestamp()) where modelname='{{this}}' and endtime is null;"
   
-  dq_tools:
-    +schema: AUDITING
+  #dq_tools:
+    #+schema: AUDITING
   
   qwt_analytics_git:
     # Applies to all files under models/
