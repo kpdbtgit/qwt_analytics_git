@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: it is staging table which store product information
+    columns:
+      - name: productid
+        description: it is unique identifier for table product
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_shipments
+    # this description comes from md (markdown) file
+    description: "{{ doc('shipments') }}"
+    columns:
+      - name: status
+        # this description comes from md (markdown) file
+        description: "{{ doc('sh_status') }}"
+        tests:
+          - accepted_values:
+              values: ['shipped','returned','ordered','replaced']
+
+  - name: stg_orderdetails
+    # this description comes from md (markdown) file
+    description: "{{ doc('orderdetails') }}"
+    columns:
+      - name: orderid
+        tests:
+          - relationships:
+              field: orderid
+              to: ref('stg_orders')
+
+  - name: stg_customers
+    columns:
+      - name: customerid
+        tests:
+          # this generic test created under tests/generic folder
+          - is_even
